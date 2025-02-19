@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.bankmanagement;
-
+package View;
+import Controller.AuthController;
+import mysql.dbSql;
 /**
  *
  * @author Dev khatri
@@ -11,6 +12,8 @@ package com.mycompany.bankmanagement;
 public class BankManagement {
 
     public static void main(String[] args) {
-        new SignUp().setVisible(true);
+       SignUp SignUpview = new SignUp();
+       SignUpview.setVisible(true);
+     // new userController(SignUpview);
     }
 }
