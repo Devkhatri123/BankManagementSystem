@@ -12,8 +12,9 @@ import mysql.dbSql;
 public class BankManagement {
 
     public static void main(String[] args) {
-       SignUp SignUpview = new SignUp();
-       SignUpview.setVisible(true);
+//       SignUp SignUpview = new SignUp();
+//       SignUpview.setVisible(true);
+         new SignUp().setVisible(true);
      // new userController(SignUpview);
     }
 }

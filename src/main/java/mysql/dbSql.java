@@ -14,14 +14,13 @@ import java.sql.SQLException;
  */
 public class dbSql {
     public static Connection makeConnection() {
-       String url = "jdbc:mysql://127.0.0.1:3306/sportsmanagement";
-   String username = "root";
-   String password = "root123";
+   final String url = "jdbc:mysql://127.0.0.1:3306/bank";
+   final String username = "root";
+   final String password = "root123";
         Connection connection = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url,username,password);
-                 System.out.println("connection successful...");
             return connection;
         }catch(ClassNotFoundException e){
             System.out.println("ERROR :" + e.getMessage());

@@ -16,8 +16,8 @@ public class user {
     private String email;
     private String martialStatus;
     private String address;
-    private String city;
-    private String state;
+    private String cnic;
+    private String phoneString;
     private int accountId;
 
     public int getUserId() {
@@ -76,20 +76,20 @@ public class user {
         this.address = address;
     }
 
-    public String getCity() {
-        return city;
+    public String getCnic() {
+        return cnic;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCnic(String cnic) {
+        this.cnic = cnic;
     }
 
-    public String getState() {
-        return state;
+    public String getPhonenumber() {
+        return phoneString;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setPhonenumber(String phoneString) {
+        this.phoneString = phoneString;
     }
 
     public int getAccountId() {
@@ -99,5 +99,5 @@ public class user {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
-    
+   
 }

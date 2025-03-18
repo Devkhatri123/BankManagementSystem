@@ -9,6 +9,7 @@ import Controller.AuthController;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import model.user;
 
 /**
  *
@@ -160,6 +161,11 @@ public class SignUp extends javax.swing.JFrame {
         loginBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
         getContentPane().add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 590, 460, 40));
 
         cnicField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -212,6 +218,12 @@ public class SignUp extends javax.swing.JFrame {
          errorLabel.setText("");
          registerUser();
     }//GEN-LAST:event_signUpBtnActionPerformed
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new LoginPage().setVisible(true);
+    }//GEN-LAST:event_loginBtnActionPerformed
   public void setNextListner(ActionListener listener){
       signUpBtn.addActionListener(listener);
   }
@@ -242,7 +254,9 @@ public class SignUp extends javax.swing.JFrame {
       return cnicField.getText();
   }
   private void registerUser(){
-      AuthController.registerUser(getName(), getFatherName(), getDof(), getemail(), getmartialStatus(), getCnic(), getAddress(), getphonenumber());
+      user User = AuthController.registerUser(getName(), getFatherName(), getDof(), getemail(), getmartialStatus(), getCnic(), getAddress(), getphonenumber());
+      accountController.createAccount(User,this);
+    //  AuthController.createAccountIdColumn(userId, accountId,this);
   }
     /**
      * @param args the command line arguments

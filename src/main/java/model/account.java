@@ -9,21 +9,37 @@ package model;
  * @author Dev khatri
  */
 public class account {
-  private int userId;
   private int accountId;
-  private String accountNumber;
+  private long accountNumber;
   private int pin;
-  private long balance;
-  private String dateOpened;
+  private int balance;
+  private int accountHolderId;
 
-    public int getUserId() {
-        return userId;
+    public int getAccountHolderId() {
+        return accountHolderId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAccountHolderId(int accountHolderId) {
+        this.accountHolderId = accountHolderId;
     }
 
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
+    }
+  
+  private String accountHolderName;
+   public void setaccountHolderName(String accountHolderName){
+       this.accountHolderName = accountHolderName;
+   }  
+  
+   public String getaccountHolderName(){
+       return accountHolderName;
+   }
+   
     public int getAccountId() {
         return accountId;
     }
@@ -32,11 +48,11 @@ public class account {
         this.accountId = accountId;
     }
 
-    public String getAccountNumber() {
+    public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber(long accountNumber) {
         this.accountNumber = accountNumber;
     }
 
@@ -48,20 +64,19 @@ public class account {
         this.pin = pin;
     }
 
-    public long getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
+    }  
+    public boolean isWithdrawable(int balance, int amountToWithdraw){
+        if(balance >= amountToWithdraw) return true;
+        else return false;
     }
-
-    public String getDateOpened() {
-        return dateOpened;
+    public boolean isTransable(int balance,int ammountToTransfer){
+        if(balance >= ammountToTransfer) return true;
+        else return false;
     }
-
-    public void setDateOpened(String dateOpened) {
-        this.dateOpened = dateOpened;
-    }
-  
 }

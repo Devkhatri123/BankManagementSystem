@@ -4,10 +4,14 @@
  */
 package Dao;
 
+import java.sql.ResultSet;
+import model.user;
+
 /**
  *
  * @author Dev khatri
  */
 public interface userDao {
-   public void createUser(String name,String fathername,String dof,String email,String martailStatus,String cnic,String address,String city);
+   public user createUser(user User);
+   public ResultSet authenticateUser(String email,long accountno,int pin);
 }
