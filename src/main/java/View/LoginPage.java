@@ -63,7 +63,7 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Company Name");
+        jLabel10.setText("Bank Management System");
 
         jLabel11.setIcon(new javax.swing.ImageIcon("D:\\Java\\BankManagement\\pics\\logo.png")); // NOI18N
         jLabel11.setFocusable(false);
