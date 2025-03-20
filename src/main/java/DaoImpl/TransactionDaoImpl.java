@@ -166,19 +166,34 @@ public class TransactionDaoImpl implements TransactionDao{
     }
     @Override
     public ArrayList<Transaction> getTransactions(account Account){
-         String getTransactionsQuery = "SELECT * FROM account WHERE account_no = "+Account.getAccountNumber()+"";
+         String getTransactionsQuery = "select transactions.amount,transactions.transcation_date, transactions.transaction_type,transactions.sender_accountno, transactions.receiver_accountno from transactions  inner join account on sender_accountno = account_no where sender_accountno = "+Account.getAccountNumber()+" ";
          try{
           Statement st = conn.createStatement();
           ResultSet rs = st.executeQuery(getTransactionsQuery);
-          if(rs.next()){
           ArrayList<Transaction> transactionsArrayList = new ArrayList<>();
               while (rs.next()) {                  
                   Transaction transaction = new Transaction();
-              }
+                  transaction.setAmount(rs.getInt(1));
+                  transaction.setTranscation_date(rs.getString(2));
+                  transaction.setTransaction_Type(rs.getString(3));
+                  transaction.setSender_Accountno(rs.getLong(4));
+                  transaction.setReceiver_Accountno(rs.getLong(5));
+//                  transactionsArrayList.add(transaction);
+                  if(transaction.getReceiver_Accountno() > 0){
+                   Statement st2 = conn.createStatement();
+                  String getreceiverDetailsQuery = "select user_name,account.account_no from account inner join user on account.userId = user.userId where account.account_no = "+transaction.getReceiver_Accountno()+" ";
+                  ResultSet rs2 = st2.executeQuery(getreceiverDetailsQuery);
+                  if(rs2.next()){
+                      if(transaction.getReceiver_Accountno() == rs2.getLong(2)){
+                          transaction.setReceiver_name(rs2.getString(1));
+                      }
+                  }
+                  }
+                  transactionsArrayList.add(transaction);
+                }
               return transactionsArrayList;
-          }
-         }catch(SQLException ex){
-             System.out.println(ex.getMessage());
+          }catch(SQLException ex){
+             System.out.println("Error : " + ex.getMessage());
          }
          return null;
     }

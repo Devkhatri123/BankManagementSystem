@@ -6,6 +6,7 @@ package View;
 
 import Controller.TransactionHandler;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.account;
 import model.user;
@@ -17,6 +18,7 @@ import model.user;
 public class Withdraw extends javax.swing.JFrame {
     private user User;
     private account Account;
+    private JLabel balancelbl;
     /**
      * Creates new form Withdraw
      */
@@ -24,9 +26,11 @@ public class Withdraw extends javax.swing.JFrame {
         initComponents();
     }
  
-    public Withdraw(account account){
+    public Withdraw(account account,JLabel balancelbl){
+        this.balancelbl = balancelbl;
         this.Account = account;
         initComponents();
+        setLocationRelativeTo(null);
         currentBalance.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
     }
     /**
@@ -149,6 +153,7 @@ public class Withdraw extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, result);
        }else{
             currentBalance.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
+            balancelbl.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
         }
     }//GEN-LAST:event_withdraw_btnActionPerformed
 

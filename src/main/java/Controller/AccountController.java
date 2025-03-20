@@ -22,6 +22,7 @@ public class AccountController {
         this.accountDaoImpl =new accountDaoImpl();
     }
     public void createAccount(user User,SignUp signUpView){
+        if(User != null){
         String pin = JOptionPane.showInputDialog(null,"Enter your pin");
         String balance = JOptionPane.showInputDialog(null,"With how much balance do you want to open the account");
         Random random = new Random();
@@ -33,9 +34,11 @@ public class AccountController {
         Account = accountDaoImpl.createAccount(Account,User.getUserId());
         if(Account != null){
             signUpView.dispose();
+            JOptionPane.showMessageDialog(null,"Your Account number : " + Account.getAccountNumber());
+            JOptionPane.showMessageDialog(null,"Your pin number : " + Account.getPin());
             new Home(User,Account).setVisible(true);
         }
-      
+        }
     }
     public account getAccountDetails(int userId){
       account account = accountDaoImpl.getAccountDetailsById(userId);

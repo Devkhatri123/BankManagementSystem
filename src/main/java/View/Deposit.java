@@ -6,6 +6,7 @@ package View;
 
 import Controller.TransactionHandler;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.account;
 import model.user;
@@ -21,14 +22,17 @@ public class Deposit extends javax.swing.JFrame {
     
     private user User;
     private account Account;
+    private JLabel balancelbl;
     public Deposit() {
         initComponents();
     }
 
-    public Deposit(user user,account account){
+    public Deposit(user user,account account,JLabel balancelbl){
+        this.balancelbl = balancelbl;
         this.Account = account;
         this.User = user;
         initComponents();
+        setLocationRelativeTo(null);
         currentBalance.setText(Integer.toString(Account.getBalance()) + "PKR");
     }
     
@@ -133,6 +137,7 @@ public class Deposit extends javax.swing.JFrame {
         int amounToDeposit = Integer.parseInt(amountField.getText());
         transactionHandler.deposit(Account, amounToDeposit);
         currentBalance.setText(Integer.toString(Account.getBalance()) + "PKR");
+        balancelbl.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
     }//GEN-LAST:event_depositBtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

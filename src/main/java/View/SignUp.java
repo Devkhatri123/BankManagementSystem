@@ -5,9 +5,10 @@
 package View;
 
 import Controller.AccountController;
-import Controller.AuthController;
+import Controller.UserController;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import model.user;
 
@@ -21,12 +22,13 @@ public class SignUp extends javax.swing.JFrame {
      * Creates new form SignUp
      */
     private HashMap<String,String> fieldsData = new HashMap<>();
-    private AuthController AuthController;
+    private UserController AuthController;
     private AccountController accountController;
     public SignUp() {
-        this.AuthController = new AuthController();
+        this.AuthController = new UserController();
         this.accountController = new AccountController();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -133,6 +135,11 @@ public class SignUp extends javax.swing.JFrame {
 
         phoneNumerField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         phoneNumerField.setName("cityTxtField"); // NOI18N
+        phoneNumerField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phoneNumberKeypress(evt);
+            }
+        });
         getContentPane().add(phoneNumerField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 458, 33));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -170,6 +177,11 @@ public class SignUp extends javax.swing.JFrame {
 
         cnicField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cnicField.setName("stateTxtField"); // NOI18N
+        cnicField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cnicKeyPress(evt);
+            }
+        });
         getContentPane().add(cnicField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 458, 33));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -208,12 +220,24 @@ public class SignUp extends javax.swing.JFrame {
         }else if(getCnic().length() == 0){
              errorLabel.setText("Cnic field is empty");
              return;
-        }else if(getAddress().length() == 0){
+        
+        }else if (getCnic().length() > 13 || getCnic().length() < 13){
+            errorLabel.setText("Cnic number should be of 13 digits");
+            return;
+        }
+        else if(getAddress().length() == 0){
              errorLabel.setText("Address field is empty");
              return;
-        }else if(getphonenumber().length() == 0){
+        }else if(getAddress().length() > 70){
+             errorLabel.setText("Address field length should of 70");
+             return;
+        }
+        else if(getphonenumber().length() == 0){
              errorLabel.setText("phone number field is empty");
              return;
+        }else if(getphonenumber().length() > 11 || getphonenumber().length() < 11){
+            errorLabel.setText("phone number should be of 11 digits");
+            return;
         }
          errorLabel.setText("");
          registerUser();
@@ -221,9 +245,33 @@ public class SignUp extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void cnicKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnicKeyPress
+        // TODO add your handling code here:
+         if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' ||  evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+             if(cnicField.getText().length() > 13 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+                 cnicField.setEditable(false);
+                 return;
+             }
+             cnicField.setEditable(true);
+         }
+        else cnicField.setEditable(false);
+    }//GEN-LAST:event_cnicKeyPress
+
+    private void phoneNumberKeypress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeypress
+        // TODO add your handling code here:
+          if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' ||  evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+              if(phoneNumerField.getText().length() > 11 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+                  phoneNumerField.setEditable(false);
+                  return;
+              }
+              phoneNumerField.setEditable(true);
+          }
+          else phoneNumerField.setEditable(false);
+    }//GEN-LAST:event_phoneNumberKeypress
   public void setNextListner(ActionListener listener){
       signUpBtn.addActionListener(listener);
   }

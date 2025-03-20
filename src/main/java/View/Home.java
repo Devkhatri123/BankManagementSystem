@@ -5,7 +5,7 @@
 package View;
 
 import Controller.AccountController;
-import Controller.AuthController;
+import Controller.UserController;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
@@ -19,7 +19,7 @@ import model.user;
 public class Home extends javax.swing.JFrame {
   
     private AccountController AccountController;
-    private AuthController AuthController;
+    private UserController AuthController;
     private user User;
     private account Account;
     /**
@@ -28,25 +28,22 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         this.AccountController = new AccountController();
         initComponents();
+        setLocationRelativeTo(null);
     }
     
-    public Home(int userId){
-        this.AccountController = new AccountController();
-        this.AuthController = new AuthController();
-        initComponents();
-    }
     public Home(user user,account account){
         this.User = user;
         this.Account = account;
         this.AccountController = new AccountController();
-        this.AuthController = new AuthController();
+        this.AuthController = new UserController();
         initComponents();
         showAccountDetails();
+        setLocationRelativeTo(null);
     }
     
        private void showAccountDetails(){
         jLabel1.setText(User.getName());
-        userAccountno.setText(Long.toString(Account.getAccountNumber()));
+        userAccountno.setText(Long.toString(Account.getAccountNumber()).substring(0,3) + "******" + Long.toString(Account.getAccountNumber()).substring(9));
         balance.setText(Integer.toString(Account.getBalance()) + " " + "PKR");
     }
     
@@ -66,6 +63,9 @@ public class Home extends javax.swing.JFrame {
         TransferBtn = new javax.swing.JButton();
         TranscationBtn = new javax.swing.JButton();
         changepinBtn = new javax.swing.JButton();
+        updatePhone = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        exitBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,7 +162,33 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        changepinBtn.setText("Change Pin");
+        changepinBtn.setText("Update Email");
+        changepinBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepinBtnActionPerformed(evt);
+            }
+        });
+
+        updatePhone.setText("Update phone number");
+        updatePhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePhoneActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Update Address");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        exitBtn.setText("Exit");
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,13 +202,16 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(266, 266, 266)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(changepinBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                             .addComponent(TransferBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(withdrawBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(updatePhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(TranscationBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(depositBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TranscationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(200, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -199,8 +228,14 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(TransferBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TranscationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(changepinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(changepinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updatePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,23 +243,46 @@ public class Home extends javax.swing.JFrame {
 
     private void TranscationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TranscationBtnActionPerformed
         // TODO add your handling code here:
-        new transactionsHistory().setVisible(true);
+        new transactionsHistory(Account).setVisible(true);
     }//GEN-LAST:event_TranscationBtnActionPerformed
 
     private void withdrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawBtnActionPerformed
         // TODO add your handling code here:
-        new Withdraw(Account).setVisible(true);
+        new Withdraw(Account,balance).setVisible(true);
     }//GEN-LAST:event_withdrawBtnActionPerformed
 
     private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
         // TODO add your handling code here:
-        new Deposit(User,Account).setVisible(true);
+        new Deposit(User,Account,balance).setVisible(true);
     }//GEN-LAST:event_depositBtnActionPerformed
 
     private void TransferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferBtnActionPerformed
         // TODO add your handling code here:
-        new Transfer(Account).setVisible(true);
+        new Transfer(Account,balance).setVisible(true);
     }//GEN-LAST:event_TransferBtnActionPerformed
+
+    private void changepinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepinBtnActionPerformed
+        // TODO add your handling code here:
+        new updateData(User,"Email").setVisible(true);
+    }//GEN-LAST:event_changepinBtnActionPerformed
+
+    private void updatePhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePhoneActionPerformed
+        // TODO add your handling code here:
+        new updateData(User, "Phone").setVisible(true);
+    }//GEN-LAST:event_updatePhoneActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new updateData(User, "Address").setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        // TODO add your handling code here:
+        User = null;
+        Account = null;
+        this.dispose();
+        new LoginPage();
+    }//GEN-LAST:event_exitBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,8 +327,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel balanceLbl;
     private javax.swing.JButton changepinBtn;
     private javax.swing.JButton depositBtn;
+    private javax.swing.JButton exitBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel namelbl;
+    private javax.swing.JButton updatePhone;
     private javax.swing.JLabel userAccountno;
     private javax.swing.JPanel userbalancelbl;
     private javax.swing.JButton withdrawBtn;

@@ -3,7 +3,7 @@
  */
 
 package View;
-import Controller.AuthController;
+import Controller.UserController;
 import mysql.dbSql;
 /**
  *

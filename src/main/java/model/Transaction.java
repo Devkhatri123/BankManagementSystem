@@ -15,6 +15,15 @@ public class Transaction {
     private String transaction_Type;
     private long receiver_Accountno;
     private String transcation_date;
+    private String receiver_name;
+
+    public String getReceiver_name() {
+        return receiver_name;
+    }
+
+    public void setReceiver_name(String receiver_name) {
+        this.receiver_name = receiver_name;
+    }
 
     public String getTranscation_date() {
         return transcation_date;

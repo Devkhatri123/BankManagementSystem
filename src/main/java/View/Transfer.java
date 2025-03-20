@@ -6,6 +6,7 @@ package View;
 import model.account;
 import java.awt.event.KeyEvent;
 import Controller.TransactionHandler;
+import javax.swing.JLabel;
 /**
  *
  * @author Dev khatri
@@ -13,6 +14,7 @@ import Controller.TransactionHandler;
 public class Transfer extends javax.swing.JFrame {
 
     private account Account;
+     private JLabel balancelbl;
     /**
      * Creates new form Transfer
      */
@@ -20,9 +22,11 @@ public class Transfer extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Transfer(account Account){
+    public Transfer(account Account,JLabel balancelbl){
+        this.balancelbl = balancelbl;
         this.Account = Account;
         initComponents();
+        setLocationRelativeTo(null);
         currentBalance.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
     }
     /**
@@ -39,7 +43,7 @@ public class Transfer extends javax.swing.JFrame {
         currentBalance = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
-        withdraw_btn = new javax.swing.JButton();
+        transferBtn = new javax.swing.JButton();
         returnBtn = new javax.swing.JButton();
         receiverAccountNoTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -66,11 +70,11 @@ public class Transfer extends javax.swing.JFrame {
             }
         });
 
-        withdraw_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        withdraw_btn.setText("Transfer");
-        withdraw_btn.addActionListener(new java.awt.event.ActionListener() {
+        transferBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        transferBtn.setText("Transfer");
+        transferBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                withdraw_btnActionPerformed(evt);
+                transferBtnActionPerformed(evt);
             }
         });
 
@@ -96,7 +100,7 @@ public class Transfer extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
@@ -113,7 +117,7 @@ public class Transfer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(receiverAccountNoTextField)
                     .addComponent(returnBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(withdraw_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(transferBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(amountField))
                 .addContainerGap())
         );
@@ -135,7 +139,7 @@ public class Transfer extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
-                .addComponent(withdraw_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transferBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
@@ -150,13 +154,14 @@ public class Transfer extends javax.swing.JFrame {
         else amountField.setEditable(false);
     }//GEN-LAST:event_amountFieldgetInputAmount_OnKeypress
 
-    private void withdraw_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdraw_btnActionPerformed
+    private void transferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferBtnActionPerformed
         // TODO add your handling code here:
         boolean result = new TransactionHandler().transfer(Account, receiverAccountNoTextField.getText(),Integer.parseInt(amountField.getText()));
         if(result){
             currentBalance.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
+            balancelbl.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
         }
-    }//GEN-LAST:event_withdraw_btnActionPerformed
+    }//GEN-LAST:event_transferBtnActionPerformed
 
     private void returnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtnActionPerformed
         // TODO add your handling code here:
@@ -213,6 +218,6 @@ public class Transfer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField receiverAccountNoTextField;
     private javax.swing.JButton returnBtn;
-    private javax.swing.JButton withdraw_btn;
+    private javax.swing.JButton transferBtn;
     // End of variables declaration//GEN-END:variables
 }

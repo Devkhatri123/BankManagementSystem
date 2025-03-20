@@ -5,6 +5,14 @@
 package View;
 import model.account;
 import Controller.TransactionHandler;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import model.Transaction;
+import javax.swing.JScrollPane;
 /**
  *
  * @author Dev khatri
@@ -14,12 +22,15 @@ public class transactionsHistory extends javax.swing.JFrame {
     /**
      * Creates new form transactionsHistory
      */
+    private account Account;
     public transactionsHistory() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public transactionsHistory(account Account){
         initComponents();
+        setLocationRelativeTo(null);
         getTransactions(Account);
     }
     
@@ -33,42 +44,62 @@ public class transactionsHistory extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        transacrionLbl = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        transactionLbl = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Transactions History");
 
-        transacrionLbl.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        transacrionLbl.setText("You Withdrawed 2000 on Tuesday");
+        transactionLbl.setText("jLabel3");
+        transactionLbl.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jScrollPane2.setViewportView(transactionLbl);
+
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton1.setText("Return Main Page");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(transacrionLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(transacrionLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,12 +136,45 @@ public class transactionsHistory extends javax.swing.JFrame {
         });
     }
 
-    private void getTransactions(account Account){
-        new TransactionHandler().getTransactions(Account);
+    private void getTransactions(account account) {
+    TransactionHandler th = new TransactionHandler();
+    ArrayList<Transaction> transactionsArray = th.getTransactions(account);
+
+    JPanel transactionPanel = new JPanel();
+    transactionPanel.setLayout(new BoxLayout(transactionPanel, BoxLayout.Y_AXIS)); // Use BoxLayout for proper scrolling
+
+    for (Transaction transaction : transactionsArray) {
+        JLabel transactionLbl = new JLabel();
+
+        if (transaction.getTransaction_Type().equals("transfer")) {
+            transactionLbl.setText("You Transferred " + transaction.getAmount() + " To " 
+                                    + transaction.getReceiver_name() + " on " + transaction.getTranscation_date());
+        } else if (transaction.getTransaction_Type().equals("withdraw")) {
+            transactionLbl.setText("You Withdrawed " + transaction.getAmount() + " on " 
+                                    + transaction.getTranscation_date());
+        } else {
+            transactionLbl.setText("You Deposited " + transaction.getAmount() + " on " 
+                                    + transaction.getTranscation_date());
+        }
+
+        transactionLbl.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        transactionPanel.add(transactionLbl);
     }
+
+    // Set transaction panel inside JScrollPane
+    jScrollPane2.setViewportView(transactionPanel);
+
+    // Refresh UI
+    transactionPanel.revalidate();
+    transactionPanel.repaint();
+}
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel transacrionLbl;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel transactionLbl;
+    private javax.swing.JPanel transactionsPanel;
     // End of variables declaration//GEN-END:variables
 }

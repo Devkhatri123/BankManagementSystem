@@ -32,14 +32,17 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jButton1" max="32767" attributes="0"/>
                           <Component id="changepinBtn" pref="119" max="32767" attributes="0"/>
                           <Component id="TransferBtn" max="32767" attributes="0"/>
                           <Component id="withdrawBtn" pref="119" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="updatePhone" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="TranscationBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="depositBtn" max="32767" attributes="0"/>
-                          <Component id="TranscationBtn" max="32767" attributes="0"/>
+                          <Component id="exitBtn" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -63,8 +66,16 @@
                   <Component id="TranscationBtn" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="changepinBtn" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace pref="143" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="changepinBtn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="updatePhone" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="exitBtn" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="91" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -217,8 +228,35 @@
     </Component>
     <Component class="javax.swing.JButton" name="changepinBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Change Pin"/>
+        <Property name="text" type="java.lang.String" value="Update Email"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changepinBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="updatePhone">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update phone number"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updatePhoneActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update Address"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="exitBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Exit"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

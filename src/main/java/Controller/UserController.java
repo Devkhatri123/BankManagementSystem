@@ -20,9 +20,9 @@ import model.user;
  *
  * @author Dev khatri
  */
-public class AuthController {
+public class UserController {
      private userDaoImpl userDaoImpl;
-     public AuthController(){
+     public UserController(){
          this.userDaoImpl = new userDaoImpl();
      }
     public user registerUser(String name,String fathername,String dof,String email,String martailStatus,String cnic,String address,String phonenumber){
@@ -58,9 +58,17 @@ public class AuthController {
             }
         }else JOptionPane.showMessageDialog(null, "No Account Found Against given crenditials.");
     }
-//    public Object[] getAccountAfterSignUp(int userId){
-//        userDaoImpl
-//        Object[] obj = new Object[2];
-//        return obj;
-//    }
+     public boolean updateEmail(user User,String emailinput){
+      if(User.getEmail().toLowerCase().equals(emailinput.toLowerCase())){
+          JOptionPane.showMessageDialog(null, "Email is same");
+          return false;
+      }
+      return userDaoImpl.updateEmail(User,emailinput);
+    }
+     public boolean updatePhone(user User,String Input){
+         return userDaoImpl.updatePhone(User, Input);
+    }
+     public boolean updateAddress(user User,String Input){
+         return userDaoImpl.updateAddress(User, Input);
+     }
 }

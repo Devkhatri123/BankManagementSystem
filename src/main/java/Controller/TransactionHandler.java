@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.account;
 import model.Transaction;
 import DaoImpl.accountDaoImpl;
+import java.util.ArrayList;
 
 /**
  *
@@ -67,7 +68,7 @@ public class TransactionHandler {
 public account getReceiverAccount(long receiverAccountno){
     return AccountDaoImpl.getReceiverAccount(receiverAccountno);
 }
-public void getTransactions(account Account){
-    TransactionDaoImpl.getTransactions(Account);
+public ArrayList<Transaction> getTransactions(account Account){
+    return TransactionDaoImpl.getTransactions(Account);
 }
 }

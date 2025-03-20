@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.AuthController;
+import Controller.UserController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.InputVerifier;
@@ -20,13 +20,14 @@ import javax.swing.text.PlainDocument;
 public class LoginPage extends javax.swing.JFrame {
  
     
-    private AuthController authController;
+    private UserController authController;
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
-        this.authController = new AuthController();
+        this.authController = new UserController();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -260,6 +261,7 @@ public class LoginPage extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         new SignUp().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
