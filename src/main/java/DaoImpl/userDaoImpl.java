@@ -162,7 +162,7 @@ public class userDaoImpl implements userDao{
            PreparedStatement ps = conn.prepareStatement(updateAddressQuery);
            int rowAffected = ps.executeUpdate();
                 if(rowAffected > 0){
-                    User.setPhonenumber(Input);
+                    User.setAddress(Input);
                     JOptionPane.showMessageDialog(null, "Address updated successfully...");
                     return true;
                 }
