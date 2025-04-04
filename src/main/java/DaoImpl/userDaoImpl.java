@@ -147,11 +147,10 @@ public class userDaoImpl implements userDao{
            PreparedStatement ps = conn.prepareStatement(updateAddressQuery);
            int rowAffected = ps.executeUpdate();
                 if(rowAffected > 0){
-<<<<<<< HEAD
+
                     user.setAddress(addressInput);
-=======
-                    User.setAddress(Input);
->>>>>>> a39b8a5628460c0a6bf86ea3e8f2ca918ac34954
+
+                    user.setAddress(addressInput);
                     JOptionPane.showMessageDialog(null, "Address updated successfully...");
                     return true;
                 }
