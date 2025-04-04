@@ -8,7 +8,7 @@ package model;
  *
  * @author Dev khatri
  */
-public class user {
+public class User {
     private int userId;
     private String name;
     private String fatherName;

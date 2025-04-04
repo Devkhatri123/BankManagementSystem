@@ -5,28 +5,26 @@
 package Controller;
 
 import DaoImpl.userDaoImpl;
+import Service.UserService;
 import View.Home;
 import View.LoginPage;
-import View.SignUp;
-import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import javax.swing.JOptionPane;
-import model.account;
-import model.user;
+import model.Account;
+import model.User;
 
 /**
  *
  * @author Dev khatri
  */
 public class UserController {
-     private userDaoImpl userDaoImpl;
+     private UserService userService;
      public UserController(){
-         this.userDaoImpl = new userDaoImpl();
+         this.userService = new UserService();
      }
-    public user registerUser(String name,String fathername,String dof,String email,String martailStatus,String cnic,String address,String phonenumber){
-        user user = new user();
+    public User registerUser(String name,String fathername,String dof,String email,String martailStatus,String cnic,String address,String phonenumber){
+        User user = new User();
         user.setName(name);
         user.setFatherName(fathername);
         user.setDof(dof);
@@ -35,19 +33,19 @@ public class UserController {
         user.setCnic(cnic);
         user.setAddress(address);
         user.setPhonenumber(phonenumber);
-        return userDaoImpl.createUser(user);
+        return userService.createUser(user);
      }
     
     public void authenticateUser(String email,String accountno,String pin,LoginPage loginpage){
-        ResultSet result = userDaoImpl.authenticateUser(email, Long.parseLong(accountno), Integer.parseInt(pin));
+        ResultSet result = userService.authenticate(email, Long.parseLong(accountno), Integer.parseInt(pin));
         if(result != null){
             try{
-            account account = new account();
+            Account account = new Account();
             account.setAccountId(result.getInt("accountId"));
             account.setAccountNumber(result.getLong("account_no"));
             account.setPin(result.getInt("pin"));
             account.setBalance(result.getInt("balance"));
-            user user = new user();
+            User user = new User();
             user.setUserId(result.getInt("userId"));
             user.setName(result.getString("user_name"));
             user.setEmail(result.getString("user_email"));
@@ -58,17 +56,17 @@ public class UserController {
             }
         }else JOptionPane.showMessageDialog(null, "No Account Found Against given crenditials.");
     }
-     public boolean updateEmail(user User,String emailinput){
-      if(User.getEmail().toLowerCase().equals(emailinput.toLowerCase())){
+     public boolean updateEmail(User user,String emailinput){
+      if(user.getEmail().toLowerCase().equals(emailinput.toLowerCase())){
           JOptionPane.showMessageDialog(null, "Email is same");
           return false;
       }
-      return userDaoImpl.updateEmail(User,emailinput);
+      return userService.updateEmail(user,emailinput);
     }
-     public boolean updatePhone(user User,String Input){
-         return userDaoImpl.updatePhone(User, Input);
+     public boolean updatePhone(User User,String Input){
+         return userService.updatePhone(User, Input);
     }
-     public boolean updateAddress(user User,String Input){
-         return userDaoImpl.updateAddress(User, Input);
+     public boolean updateAddress(User user,String Input){
+         return userService.updateAddress(user, Input);
      }
 }

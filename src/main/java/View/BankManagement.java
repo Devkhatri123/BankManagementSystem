@@ -4,7 +4,7 @@
 
 package View;
 import Controller.UserController;
-import mysql.dbSql;
+import db.dbSql;
 /**
  *
  * @author Dev khatri

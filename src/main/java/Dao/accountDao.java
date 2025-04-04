@@ -3,13 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package Dao;
+import java.util.ArrayList;
 import model.*;
 /**
  *
  * @author Dev khatri
  */
 public interface accountDao {
-    public account createAccount(account account,int userId);
-    public account getAccountDetailsById(int accountid);
-    public account getReceiverAccount(long receiverAccountno);
+    public int createAccount(Account account,int userId);
+    public Account getAccountDetailsById(int accountid);
+    public Account getReceiverAccount(long receiverAccountno);
+    public boolean withdraw(Account account,Transaction transaction);
+    public boolean deposit(Account account,Transaction transaction);
+    public boolean Transfer(Account senderAccount,Account receiverAccount, Transaction transaction);
+    public ArrayList<Transaction> getTransactions(Account account);
 }

@@ -10,7 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import model.user;
+import model.User;
 
 /**
  *
@@ -21,18 +21,18 @@ public class updateData extends javax.swing.JFrame{
     /**
      * Creates new form updateEmail
      */
-    private user User;
+    private User User;
     private String updateDataType;
     public updateData() {
         initComponents();
     }
-    public updateData(user User){
+    public updateData(User User){
         this.User = User;
         initComponents();
         setLocationRelativeTo(null);
     }
     
-    public updateData(user User,String updateDataType){
+    public updateData(User User,String updateDataType){
         this.User = User;
         this.updateDataType = updateDataType;
         initComponents();

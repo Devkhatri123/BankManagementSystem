@@ -4,20 +4,20 @@
  */
 package View;
 
-import Controller.TransactionHandler;
+import Controller.AccountController;
 import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import model.account;
-import model.user;
+import model.Account;
+import model.User;
 
 /**
  *
  * @author Dev khatri
  */
 public class Withdraw extends javax.swing.JFrame {
-    private user User;
-    private account Account;
+    private User User;
+    private Account Account;
     private JLabel balancelbl;
     /**
      * Creates new form Withdraw
@@ -26,7 +26,7 @@ public class Withdraw extends javax.swing.JFrame {
         initComponents();
     }
  
-    public Withdraw(account account,JLabel balancelbl){
+    public Withdraw(Account account,JLabel balancelbl){
         this.balancelbl = balancelbl;
         this.Account = account;
         initComponents();
@@ -146,9 +146,9 @@ public class Withdraw extends javax.swing.JFrame {
 
     private void withdraw_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdraw_btnActionPerformed
         // TODO add your handling code here:
-        TransactionHandler transactionHandler = new TransactionHandler();
+        AccountController accountController = new AccountController();
         int AmountToWithDraw = Integer.parseInt(amountField.getText());
-        String result = transactionHandler.withDraw(Account,AmountToWithDraw);
+        String result = accountController.withDraw(Account,AmountToWithDraw);
         if(result.equals("You have insufficient balance in your account")){
             JOptionPane.showMessageDialog(this, result);
        }else{

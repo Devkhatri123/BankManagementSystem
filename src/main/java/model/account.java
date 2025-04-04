@@ -8,7 +8,7 @@ package model;
  *
  * @author Dev khatri
  */
-public class account {
+public class Account {
   private int accountId;
   private long accountNumber;
   private int pin;
@@ -71,12 +71,4 @@ public class account {
     public void setBalance(int balance) {
         this.balance = balance;
     }  
-    public boolean isWithdrawable(int balance, int amountToWithdraw){
-        if(balance >= amountToWithdraw) return true;
-        else return false;
-    }
-    public boolean isTransable(int balance,int ammountToTransfer){
-        if(balance >= ammountToTransfer) return true;
-        else return false;
-    }
 }

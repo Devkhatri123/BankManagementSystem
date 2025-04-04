@@ -10,7 +10,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import model.user;
+import javax.swing.JOptionPane;
+import model.User;
 
 /**
  *
@@ -221,7 +222,7 @@ public class SignUp extends javax.swing.JFrame {
              errorLabel.setText("Cnic field is empty");
              return;
         
-        }else if (getCnic().length() > 13 || getCnic().length() < 13){
+        }else if (getCnic().length() < 11){
             errorLabel.setText("Cnic number should be of 13 digits");
             return;
         }
@@ -235,7 +236,7 @@ public class SignUp extends javax.swing.JFrame {
         else if(getphonenumber().length() == 0){
              errorLabel.setText("phone number field is empty");
              return;
-        }else if(getphonenumber().length() > 11 || getphonenumber().length() < 11){
+        }else if(getphonenumber().length() < 11){
             errorLabel.setText("phone number should be of 11 digits");
             return;
         }
@@ -252,7 +253,7 @@ public class SignUp extends javax.swing.JFrame {
     private void cnicKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnicKeyPress
         // TODO add your handling code here:
          if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' ||  evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-             if(cnicField.getText().length() > 13 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+             if(cnicField.getText().length() >= 11 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
                  cnicField.setEditable(false);
                  return;
              }
@@ -264,7 +265,7 @@ public class SignUp extends javax.swing.JFrame {
     private void phoneNumberKeypress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeypress
         // TODO add your handling code here:
           if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' ||  evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-              if(phoneNumerField.getText().length() > 11 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+              if(phoneNumerField.getText().length() >= 11 && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE){
                   phoneNumerField.setEditable(false);
                   return;
               }
@@ -302,8 +303,10 @@ public class SignUp extends javax.swing.JFrame {
       return cnicField.getText();
   }
   private void registerUser(){
-      user User = AuthController.registerUser(getName(), getFatherName(), getDof(), getemail(), getmartialStatus(), getCnic(), getAddress(), getphonenumber());
+      User User = AuthController.registerUser(getName(), getFatherName(), getDof(), getemail(), getmartialStatus(), getCnic(), getAddress(), getphonenumber());
+      if(User != null){
       accountController.createAccount(User,this);
+      }
     //  AuthController.createAccountIdColumn(userId, accountId,this);
   }
     /**

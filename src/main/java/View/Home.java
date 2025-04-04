@@ -9,8 +9,8 @@ import Controller.UserController;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import model.account;
-import model.user;
+import model.Account;
+import model.User;
 
 /**
  *
@@ -20,8 +20,8 @@ public class Home extends javax.swing.JFrame {
   
     private AccountController AccountController;
     private UserController AuthController;
-    private user User;
-    private account Account;
+    private User User;
+    private Account Account;
     /**
      * Creates new form Home
      */
@@ -31,7 +31,7 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public Home(user user,account account){
+    public Home(User user,Account account){
         this.User = user;
         this.Account = account;
         this.AccountController = new AccountController();

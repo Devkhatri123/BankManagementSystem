@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-import model.account;
+import Controller.AccountController;
+import model.Account;
 import java.awt.event.KeyEvent;
-import Controller.TransactionHandler;
 import javax.swing.JLabel;
 /**
  *
@@ -13,7 +13,7 @@ import javax.swing.JLabel;
  */
 public class Transfer extends javax.swing.JFrame {
 
-    private account Account;
+    private Account Account;
      private JLabel balancelbl;
     /**
      * Creates new form Transfer
@@ -22,7 +22,7 @@ public class Transfer extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Transfer(account Account,JLabel balancelbl){
+    public Transfer(Account Account,JLabel balancelbl){
         this.balancelbl = balancelbl;
         this.Account = Account;
         initComponents();
@@ -156,7 +156,7 @@ public class Transfer extends javax.swing.JFrame {
 
     private void transferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferBtnActionPerformed
         // TODO add your handling code here:
-        boolean result = new TransactionHandler().transfer(Account, receiverAccountNoTextField.getText(),Integer.parseInt(amountField.getText()));
+        boolean result = new AccountController().transfer(Account, receiverAccountNoTextField.getText(),Integer.parseInt(amountField.getText()));
         if(result){
             currentBalance.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
             balancelbl.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");

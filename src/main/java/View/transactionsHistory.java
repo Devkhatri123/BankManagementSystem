@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-import model.account;
-import Controller.TransactionHandler;
+import Controller.AccountController;
+import model.Account;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -22,13 +22,13 @@ public class transactionsHistory extends javax.swing.JFrame {
     /**
      * Creates new form transactionsHistory
      */
-    private account Account;
+    private Account Account;
     public transactionsHistory() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public transactionsHistory(account Account){
+    public transactionsHistory(Account Account){
         initComponents();
         setLocationRelativeTo(null);
         getTransactions(Account);
@@ -136,9 +136,9 @@ public class transactionsHistory extends javax.swing.JFrame {
         });
     }
 
-    private void getTransactions(account account) {
-    TransactionHandler th = new TransactionHandler();
-    ArrayList<Transaction> transactionsArray = th.getTransactions(account);
+    private void getTransactions(Account account) {
+        AccountController Ac = new AccountController();
+    ArrayList<Transaction> transactionsArray = Ac.getTransactions(account);
 
     JPanel transactionPanel = new JPanel();
     transactionPanel.setLayout(new BoxLayout(transactionPanel, BoxLayout.Y_AXIS)); // Use BoxLayout for proper scrolling

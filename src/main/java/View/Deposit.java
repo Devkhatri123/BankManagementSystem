@@ -4,12 +4,12 @@
  */
 package View;
 
-import Controller.TransactionHandler;
+import Controller.AccountController;
 import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import model.account;
-import model.user;
+import model.Account;
+import model.User;
 
 /**
  *
@@ -20,14 +20,14 @@ public class Deposit extends javax.swing.JFrame {
      * Creates new form Deposit
      */
     
-    private user User;
-    private account Account;
+    private User User;
+    private Account Account;
     private JLabel balancelbl;
     public Deposit() {
         initComponents();
     }
 
-    public Deposit(user user,account account,JLabel balancelbl){
+    public Deposit(User user,Account account,JLabel balancelbl){
         this.balancelbl = balancelbl;
         this.Account = account;
         this.User = user;
@@ -133,9 +133,9 @@ public class Deposit extends javax.swing.JFrame {
 
     private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
         // TODO add your handling code here:
-        TransactionHandler transactionHandler = new TransactionHandler();
+        AccountController AccountController = new AccountController();
         int amounToDeposit = Integer.parseInt(amountField.getText());
-        transactionHandler.deposit(Account, amounToDeposit);
+        JOptionPane.showMessageDialog(this, AccountController.deposit(Account, amounToDeposit));
         currentBalance.setText(Integer.toString(Account.getBalance()) + "PKR");
         balancelbl.setText(Integer.toString(Account.getBalance()) + "  " + "PKR");
     }//GEN-LAST:event_depositBtnActionPerformed

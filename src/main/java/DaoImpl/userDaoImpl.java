@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import mysql.dbSql;
-import model.user;
+import db.dbSql;
+import model.User;
 
 /**
  *
@@ -28,14 +28,14 @@ public class userDaoImpl implements userDao{
     
     
     @Override
-    public ArrayList<user> getUsers(){
-        ArrayList<user> users = new ArrayList<>();
+    public ArrayList<User> getUsers(){
+        ArrayList<User> users = new ArrayList<>();
         String getUsersQuery = "SELECT * FROM user";
         try {
             PreparedStatement ps = conn.prepareStatement(getUsersQuery);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                user User = new user();
+                User User = new User();
                 User.setEmail(rs.getString(5));
                 User.setCnic(rs.getString(7));
                 User.setPhonenumber(rs.getString(9));
@@ -50,7 +50,7 @@ public class userDaoImpl implements userDao{
     
     
     @Override
-   public user createUser(user User){
+   public User createUser(User user){
         String createUserTableQuery = "CREATE TABLE IF NOT EXISTS user(" +
 "                   userId int PRIMARY KEY NOT NULL AUTO_INCREMENT," +
 "                   user_name VARCHAR(50) NOT NULL," +
@@ -66,30 +66,23 @@ public class userDaoImpl implements userDao{
            Statement statement = conn.createStatement();   
            statement.executeUpdate(createUserTableQuery);
            
-          if(!isEmailExist(User, User.getEmail())){
-           
-           String insertUserDataQuery = "INSERT INTO user (user_name,user_fathername,user_dof,user_email,user_martialStatus,user_cnic,user_address,user_phonenumber) VALUES (?,?,?,?,?,?,?,?)";
+            String insertUserDataQuery = "INSERT INTO user (user_name,user_fathername,user_dof,user_email,user_martialStatus,user_cnic,user_address,user_phonenumber) VALUES (?,?,?,?,?,?,?,?)";
            
             PreparedStatement ps = conn.prepareStatement(insertUserDataQuery, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, User.getName());
-            ps.setString(2, User.getFatherName());
-            ps.setString(3, User.getDof());
-            ps.setString(4, User.getEmail());
-            ps.setString(5, User.getMartialStatus());
-            ps.setString(6, User.getCnic());
-            ps.setString(7, User.getAddress());
-            ps.setString(8, User.getPhonenumber());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getFatherName());
+            ps.setString(3, user.getDof());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getMartialStatus());
+            ps.setString(6, user.getCnic());
+            ps.setString(7, user.getAddress());
+            ps.setString(8, user.getPhonenumber());
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             if(ids.next()){
-                User.setUserId(ids.getInt(1));
+                user.setUserId(ids.getInt(1));
+                 return user;
             }
-            return User;
-          }else {
-              JOptionPane.showMessageDialog(null, "Email is already in use");
-              User = null;
-              return null;
-          }
         } catch (SQLException e) {
            
             System.out.println(e.getMessage());
@@ -118,51 +111,43 @@ public class userDaoImpl implements userDao{
        return null;
    }
    @Override
-   public boolean updateEmail(user User,String emailinput){
-       if(!isEmailExist(User,emailinput)){
-       String updateEmailQuery = "UPDATE user SET user_email = '"+emailinput+"' WHERE userId = "+User.getUserId()+" ";
+   public boolean updateEmail(User user,String emailInput){
+       String updateEmailQuery = "UPDATE user SET user_email = '"+emailInput+"' WHERE userId = "+user.getUserId()+" ";
        try{
        PreparedStatement ps = conn.prepareStatement(updateEmailQuery);
        int rowAffected = ps.executeUpdate();
        JOptionPane.showMessageDialog(null, "Email updated successfully...");
-       User.setEmail(emailinput);
+       user.setEmail(emailInput);
        if(rowAffected > 0) return true;
        }catch(SQLException e){
            System.out.println(e.getMessage());
        }
-        }else{
-           JOptionPane.showMessageDialog(null, "Email already exist in database");
-       }
         return false;
    }
    @Override 
-   public boolean updatePhone(user User,String Input){
-       if(!isPhoneNumberExist(User,Input)){
-            String updatePhoneQuery = "UPDATE user SET user_phonenumber = '"+Input+"' WHERE userId = "+User.getUserId()+" ";
+   public boolean updatePhone(User user,String phoneInput){
+        String updatePhoneQuery = "UPDATE user SET user_phonenumber = '"+phoneInput+"' WHERE userId = "+user.getUserId()+" ";
            try{
            PreparedStatement ps = conn.prepareStatement(updatePhoneQuery);
            int rowAffected = ps.executeUpdate();
                 if(rowAffected > 0){
-                    User.setPhonenumber(Input);
+                    user.setPhonenumber(phoneInput);
                     JOptionPane.showMessageDialog(null, "Phone number updated successfully...");
                     return true;
                 }
        }catch(SQLException e){
            System.out.println(e.getMessage());
        }
-       }else{
-          JOptionPane.showMessageDialog(null, "Phone number already exist in database"); 
-       }
        return false;
    }
    
-    public boolean updateAddress(user User,String Input){
-         String updateAddressQuery = "UPDATE user SET user_address = '"+Input+"' WHERE userId = "+User.getUserId()+" ";
+    public boolean updateAddress(User user,String addressInput){
+         String updateAddressQuery = "UPDATE user SET user_address = '"+addressInput+"' WHERE userId = "+user.getUserId()+" ";
            try{
            PreparedStatement ps = conn.prepareStatement(updateAddressQuery);
            int rowAffected = ps.executeUpdate();
                 if(rowAffected > 0){
-                    User.setPhonenumber(Input);
+                    user.setAddress(addressInput);
                     JOptionPane.showMessageDialog(null, "Address updated successfully...");
                     return true;
                 }
@@ -173,13 +158,13 @@ public class userDaoImpl implements userDao{
     }
    
    
-   public boolean isPhoneNumberExist(user User,String Input){
+   public boolean isPhoneNumberExist(String phoneInput){
        String getUserQuery = "SELECT * FROM user";
         try{
         PreparedStatement ps = conn.prepareStatement(getUserQuery);
         ResultSet result = ps.executeQuery();
         while(result.next()){
-            if(result.getString("user_phonenumber").toLowerCase().equals(Input.toLowerCase())){
+            if(result.getString("user_phonenumber").equals(phoneInput)){
                return true;
             }
         }
@@ -190,13 +175,30 @@ public class userDaoImpl implements userDao{
        return true;
    }
     @Override
-    public boolean isEmailExist(user User,String emailinput){
+    public boolean isEmailExist(String emailInput){
         String getUserQuery = "SELECT * FROM user";
         try{
         PreparedStatement ps = conn.prepareStatement(getUserQuery);
         ResultSet result = ps.executeQuery();
         while(result.next()){
-            if(result.getString("user_email").toLowerCase().equals(emailinput.toLowerCase())){
+            if(result.getString("user_email").toLowerCase().equals(emailInput.toLowerCase())){
+               return true;
+            }
+        }
+        return false;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    @Override
+    public boolean isCnicExist(String cnicInput){
+        String getUserQuery = "SELECT * FROM user";
+        try{
+        PreparedStatement ps = conn.prepareStatement(getUserQuery);
+        ResultSet result = ps.executeQuery();
+        while(result.next()){
+            if(result.getString("user_cnic").toLowerCase().equals(cnicInput.toLowerCase())){
                return true;
             }
         }
