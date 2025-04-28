@@ -1,19 +1,33 @@
 # BankManagementSystem
+
 🚀 Built a Bank Management System using Java Swing & MVC! 🏦
 Excited to share my latest project—a Bank Management System, a desktop application built using Java Swing, following the MVC architecture for a well-structured and scalable design.
+
 🔹 Features:
+
  ✅ User Authentication – Secure login & signup
+ 
  ✅ Account Management – View balance, deposit, Transfer, and withdraw funds
+ 
  ✅ Profile Update – Users can update their email, phone, and address
+ 
  ✅ Transaction History – View all past transactions
+ 
  ✅ Clean Architecture – DAO, Service, and MVC layers for maintainability
+ 
  ✅ Database Integration – Data stored using MySQL
+ 
 💡 Tech Stack:
+
  🔸 Java Swing – UI for desktop application
+ 
  🔸 JDBC & MySQL – Handling data storage & retrieval
+ 
  🔸 MVC Architecture – Separating concerns for better maintainability
+ 
 
 This project helped me improve my skills in Java, UI development, database integration, and software design patterns.
+
 
 ![image](https://github.com/user-attachments/assets/45d70197-5e33-4c95-bb91-13b557d96e30)
 ![image](https://github.com/user-attachments/assets/beb637a4-8aed-4004-938a-a8378c75e5c6)
